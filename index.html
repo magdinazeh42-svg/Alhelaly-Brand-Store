@@ -193,11 +193,16 @@ let x=products.find(p=>p.id===id);
 
 if(!x)return;
 
-alert(
-'اسم المنتج: '+x.n+
-'\nالقسم: '+x.c+
-'\nالسعر: '+x.p+' جنيه'
-);
+let message=
+'🛍️ '+x.n+
+'\n\nالقسم: '+x.c+
+'\nالسعر: '+x.p+' جنيه'+
+'\n\nلإضافة المنتج للسلة اضغط موافق.';
+
+if(confirm(message)){
+add(id);
+alert('تمت إضافة '+x.n+' للسلة 🛒');
+}
 
 }
 function filter(c,b){
