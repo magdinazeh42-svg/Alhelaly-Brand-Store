@@ -319,10 +319,10 @@ ${x.p} جنيه
 </div>
 
 <div class="options">
-<button class="option active">M</button>
-<button class="option">L</button>
-<button class="option">XL</button>
-<button class="option">XXL</button>
+<<button class="option active" onclick="chooseOption(this)">M</button>
+<button class="option" onclick="chooseOption(this)">L</button>
+<button class="option" onclick="chooseOption(this)">XL</button>
+<button class="option" onclick="chooseOption(this)">XXL</button>
 </div>
 
 <div class="optionTitle">
@@ -330,9 +330,9 @@ ${x.p} جنيه
 </div>
 
 <div class="options">
-<button class="option active">أسود</button>
-<button class="option">أبيض</button>
-<button class="option">أزرق</button>
+<<button class="option active" onclick="chooseOption(this)">أسود</button>
+<button class="option" onclick="chooseOption(this)">أبيض</button>
+<button class="option" onclick="chooseOption(this)">أزرق</button>
 </div>
 
 <div class="optionTitle">
@@ -372,7 +372,17 @@ if(detailQty<1)detailQty=1;
 document.getElementById('detailQty').textContent=detailQty;
 
 }
+function chooseOption(button){
 
+let group=button.parentElement;
+
+group.querySelectorAll('.option').forEach(function(b){
+b.classList.remove('active');
+});
+
+button.classList.add('active');
+
+}
 function addDetailToCart(){
 
 let x=products.find(p=>p.id===detailProductId);
