@@ -389,8 +389,32 @@ let x=products.find(p=>p.id===detailProductId);
 
 if(!x)return;
 
+let groups=document.querySelectorAll('#productView .options');
+
+let size=groups[0].querySelector('.active').textContent;
+let color=groups[1].querySelector('.active').textContent;
+
 for(let i=0;i<detailQty;i++){
-cart.push(x);
+
+cart.push({
+...x,
+size:size,
+color:color
+});
+
+}
+
+document.getElementById('count').textContent=cart.length;
+
+closeProduct();
+
+alert(
+'تمت إضافة '+detailQty+' من '+x.n+
+'\nالمقاس: '+size+
+'\nاللون: '+color+
+' إلى السلة 🛒'
+);
+
 }
 
 document.getElementById('count').textContent=cart.length;
@@ -459,12 +483,18 @@ orderText+='العنوان: '+address+'%0A%0A';
 orderText+='المنتجات:%0A';
 
 cart.forEach((x,i)=>{
-orderText+=(i+1)+') '+x.n+' - '+x.p+' جنيه%0A';
+
+orderText+=(i+1)+') '+x.n+
+' - '+x.p+' جنيه'+
+'%0Aالمقاس: '+(x.size||'غير محدد')+
+'%0Aاللون: '+(x.color||'غير محدد')+
+'%0A%0A';
+
 });
 
 let total=cart.reduce((sum,x)=>sum+x.p,0);
 
-orderText+='%0Aالإجمالي: '+total+' جنيه';
+orderText+='الإجمالي: '+total+' جنيه';
 
 let whatsapp='https://wa.me/201022684685?text='+orderText;
 
