@@ -474,31 +474,32 @@ let name=document.getElementById('name').value;
 let phone=document.getElementById('phone').value;
 let address=document.getElementById('address').value;
 
-let orderText='طلب جديد من ALHILALI BRAND STORE%0A%0A';
-
-orderText+='الاسم: '+name+'%0A';
-orderText+='الهاتف: '+phone+'%0A';
-orderText+='العنوان: '+address+'%0A%0A';
-
-orderText+='المنتجات:%0A';
+let orderText=
+'طلب جديد من ALHILALI BRAND STORE\n\n'+
+'الاسم: '+name+'\n'+
+'الهاتف: '+phone+'\n'+
+'العنوان: '+address+'\n\n'+
+'المنتجات:\n';
 
 cart.forEach((x,i)=>{
 
-orderText+=(i+1)+') '+x.n+
-' - '+x.p+' جنيه'+
-'%0Aالمقاس: '+(x.size||'غير محدد')+
-'%0Aاللون: '+(x.color||'غير محدد')+
-'%0A%0A';
+orderText+=
+(i+1)+') '+x.n+
+' - '+x.p+' جنيه\n'+
+'المقاس: '+(x.size||'غير محدد')+'\n'+
+'اللون: '+(x.color||'غير محدد')+'\n\n';
 
 });
 
-let total=cart.reduce((sum,x)=>sum+x.p,0);
+let total=cart.reduce((sum,x)=>sum+Number(x.p),0);
 
 orderText+='الإجمالي: '+total+' جنيه';
 
-let whatsapp='https://wa.me/201022684685?text='+orderText;
+let whatsapp=
+'https://wa.me/201022684685?text='+
+encodeURIComponent(orderText);
 
-window.open(whatsapp,'_blank');
+window.location.href=whatsapp;
 
 }
 function openAdmin(){
