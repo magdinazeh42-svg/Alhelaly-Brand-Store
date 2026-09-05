@@ -229,14 +229,36 @@ alert('من فضلك اكتب بيانات الطلب');
 return;
 }
 
-alert('تم تسجيل الطلب تجريبياً بنجاح');
-
-cart=[];
-document.getElementById('count').textContent=0;
-closeCart();
-
+if(cart.length===0){
+alert('السلة فارغة');
+return;
 }
 
+let name=document.getElementById('name').value;
+let phone=document.getElementById('phone').value;
+let address=document.getElementById('address').value;
+
+let orderText='طلب جديد من ALHILALI BRAND STORE%0A%0A';
+
+orderText+='الاسم: '+name+'%0A';
+orderText+='الهاتف: '+phone+'%0A';
+orderText+='العنوان: '+address+'%0A%0A';
+
+orderText+='المنتجات:%0A';
+
+cart.forEach((x,i)=>{
+orderText+=(i+1)+') '+x.n+' - '+x.p+' جنيه%0A';
+});
+
+let total=cart.reduce((sum,x)=>sum+x.p,0);
+
+orderText+='%0Aالإجمالي: '+total+' جنيه';
+
+let whatsapp='https://wa.me/201022684685?text='+orderText;
+
+window.open(whatsapp,'_blank');
+
+}
 function openAdmin(){
 
 document.getElementById('admin').style.display='block';
