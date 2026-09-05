@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ALHILALI BRAND STORE</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f7f7f7;color:#171717}
+header{background:#111;color:#fff;padding:22px 18px 18px;position:sticky;top:0;z-index:5}
+.logo{font-size:22px;font-weight:800;letter-spacing:1px}.sub{font-size:12px;opacity:.7;margin-top:4px}
+main{padding:18px;max-width:700px;margin:auto}.hero{background:#171717;color:#fff;border-radius:20px;padding:25px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:27px}.hero p{margin:0;opacity:.8}
+.cats{display:flex;gap:8px;overflow:auto;margin:12px 0 18px}.cat{border:0;background:#fff;border-radius:999px;padding:10px 16px;white-space:nowrap}.cat.active{background:#111;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 10px #0000000d}.pic{height:180px;background:linear-gradient(135deg,#ddd,#aaa);display:flex;align-items:center;justify-content:center;font-size:42px}.info{padding:12px}.name{font-weight:700}.price{margin-top:6px;font-weight:800}.btn{margin-top:10px;width:100%;border:0;border-radius:10px;background:#111;color:#fff;padding:11px}
+.cart{position:fixed;left:18px;bottom:18px;background:#111;color:#fff;border:0;border-radius:999px;padding:14px 18px;box-shadow:0 5px 20px #0003}
+#cart{display:none;position:fixed;inset:0;background:#fff;z-index:10;padding:24px;overflow:auto}.close{float:left;border:0;background:#eee;border-radius:50%;width:38px;height:38px}
+input{width:100%;padding:13px;margin:7px 0;border:1px solid #ddd;border-radius:10px}.order{width:100%;padding:14px;background:#111;color:#fff;border:0;border-radius:12px;margin-top:10px}
+</style>
+</head>
+<body>
+<header><div class="logo">ALHILALI BRAND STORE</div><div class="sub">رجالي • حريمي • أطفال</div></header>
+<main>
+<section class="hero"><h1>اختار ستايلك</h1><p>كل اللي تحتاجه من الملابس في مكان واحد.</p></section>
+<div class="cats">
+<button class="cat active" onclick="filter('الكل',this)">الكل</button>
+<button class="cat" onclick="filter('رجالي',this)">رجالي</button>
+<button class="cat" onclick="filter('حريمي',this)">حريمي</button>
+<button class="cat" onclick="filter('أطفال',this)">أطفال</button>
+</div>
+<div id="grid" class="grid"></div>
+</main>
+<button class="cart" onclick="openCart()">🛒 السلة (<span id="count">0</span>)</button>
+<section id="cart"><button class="close" onclick="closeCart()">×</button><h2>سلة المشتريات</h2><div id="items"></div><hr>
+<h3>بيانات الطلب</h3><input id="name" placeholder="الاسم"><input id="phone" placeholder="رقم الهاتف" type="tel"><input id="address" placeholder="العنوان">
+<button class="order" onclick="placeOrder()">تأكيد الطلب</button></section>
+<script>
+const products=[
+{id:1,c:'رجالي',n:'تيشيرت رجالي',p:450,e:'👕'},{id:2,c:'رجالي',n:'هودي رجالي',p:850,e:'🧥'},
+{id:3,c:'حريمي',n:'بلوزة حريمي',p:550,e:'👚'},{id:4,c:'حريمي',n:'فستان حريمي',p:950,e:'👗'},
+{id:5,c:'أطفال',n:'طقم أطفال',p:500,e:'🧒'},{id:6,c:'أطفال',n:'هودي أطفال',p:650,e:'🧥'}];
+let cart=[];
+function render(c='الكل'){grid.innerHTML=products.filter(x=>c==='الكل'||x.c===c).map(x=>`<div class="card"><div class="pic">${x.e}</div><div class="info"><div class="name">${x.n}</div><div>${x.c}</div><div class="price">${x.p} جنيه</div><button class="btn" onclick="add(${x.id})">أضف للسلة</button></div></div>`).join('')}
+function add(id){cart.push(products.find(x=>x.id===id));count.textContent=cart.length}
+function filter(c,b){document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(c)}
+function openCart(){items.innerHTML=cart.length?cart.map((x,i)=>`<p>${x.n} — ${x.p} جنيه</p>`).join(''):'السلة فارغة';cart.style.display='block'}
+function closeCart(){cart.style.display='none'}
+function placeOrder(){if(!name.value||!phone.value||!address.value){alert('من فضلك اكتب بيانات الطلب');return}alert('تم تسجيل الطلب تجريبياً بنجاح');cart=[];count.textContent=0;closeCart()}
+render();
+</script>
+</body></html>
