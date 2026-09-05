@@ -187,7 +187,19 @@ function add(id){
 cart.push(products.find(x=>x.id===id));
 document.getElementById('count').textContent=cart.length;
 }
+function openProduct(id){
 
+let x=products.find(p=>p.id===id);
+
+if(!x)return;
+
+alert(
+'اسم المنتج: '+x.n+
+'\nالقسم: '+x.c+
+'\nالسعر: '+x.p+' جنيه'
+);
+
+}
 function filter(c,b){
 document.querySelectorAll('.cat').forEach(x=>x.classList.remove('active'));
 b.classList.add('active');
