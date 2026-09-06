@@ -620,7 +620,24 @@ let reader=new FileReader();
 
 reader.onload=function(){
 
-let e=reader.result;
+let img=new Image();
+
+img.onload=function(){
+
+let canvas=document.createElement('canvas');
+
+let max=800;
+
+let scale=Math.min(max/img.width,max/img.height,1);
+
+canvas.width=img.width*scale;
+canvas.height=img.height*scale;
+
+let ctx=canvas.getContext('2d');
+
+ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+let e=canvas.toDataURL('image/jpeg',0.7);
 
 products.push({
 id:Date.now(),
@@ -644,10 +661,12 @@ alert('تمت إضافة المنتج');
 
 };
 
+img.src=reader.result;
+
+};
+
 reader.readAsDataURL(file);
-
 }
-
 function resetProducts(){
 
 if(!confirm('إرجاع المنتجات الأصلية وحذف تعديلاتك؟'))return;
