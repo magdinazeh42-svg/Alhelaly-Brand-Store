@@ -267,7 +267,7 @@ products
 .filter(x=>c==='الكل'||x.c===c)
 .map(x=>`
 <div class="card" onclick="openProduct(${x.id})">
-<div class="pic">${x.e ? `<img src="${x.e}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">` : '👕'}</div>
+<div class="pic">${x.e && (x.e.startsWith('data:image') || x.e.startsWith('http')) ? `<img src="${x.e}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">` : (x.e || '👕')}</div>
 <div class="info">
 <div class="name">${x.n}</div>
 <div class="muted">${x.c}</div>
