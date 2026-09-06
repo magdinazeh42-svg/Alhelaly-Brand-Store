@@ -142,7 +142,7 @@ input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;ba
 <div class="logo">ALHILALI BRAND STORE</div>
 <div class="sub">رجالي • حريمي • أطفال</div>
 </div>
-<button class="adminBtn" onclick="openAdmin()">⚙️ الإدارة</button>
+<button class="adminBtn" style="display:none" onclick="openAdmin()">⚙️ الإدارة</button>
 </div>
 </header>
 
@@ -646,8 +646,11 @@ renderAdmin();
 
 render();
 
-</script>
+if(location.hash==='#admin'){
+openAdmin();
+}
 
+</script>
 </body>
 </html>
 
