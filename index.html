@@ -226,7 +226,7 @@ input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;ba
 
 <div class="field">
 <label>رمز/إيموجي للصورة مؤقتًا</label>
-<input id="newImage" type="url" placeholder="رابط صورة المنتج">
+<input id="newImage" type="file" accept="image/*">
 </div>
 
 <button class="saveBtn" onclick="addProduct()">➕ إضافة المنتج</button>
@@ -267,7 +267,7 @@ products
 .filter(x=>c==='الكل'||x.c===c)
 .map(x=>`
 <div class="card" onclick="openProduct(${x.id})">
-<div class="pic">${x.e ? (x.e.startsWith('http') ? `<img src="${x.e}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">` : x.e) : '👕'}</div>
+<div class="pic">${x.e ? `<img src="${x.e}" style="width:100%;height:100%;object-fit:cover;border-radius:12px">` : '👕'}</div>
 <div class="info">
 <div class="name">${x.n}</div>
 <div class="muted">${x.c}</div>
@@ -598,7 +598,7 @@ let p=Number(document.getElementById('newPrice').value);
 
 let c=document.getElementById('newCat').value;
 
-let e=document.getElementById('newImage').value.trim();
+let file=document.getElementById('newImage').files[0];
 
 if(!n||!p){
 
@@ -607,6 +607,20 @@ alert('اكتب اسم المنتج والسعر');
 return;
 
 }
+
+if(!file){
+
+alert('اختار صورة للمنتج');
+
+return;
+
+}
+
+let reader=new FileReader();
+
+reader.onload=function(){
+
+let e=reader.result;
 
 products.push({
 id:Date.now(),
@@ -624,9 +638,13 @@ renderAdmin();
 
 document.getElementById('newName').value='';
 document.getElementById('newPrice').value='';
-document.getElementById('newEmoji').value='';
+document.getElementById('newImage').value='';
 
 alert('تمت إضافة المنتج');
+
+};
+
+reader.readAsDataURL(file);
 
 }
 
