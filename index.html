@@ -226,7 +226,7 @@ input,select{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;ba
 
 <div class="field">
 <label>رمز/إيموجي للصورة مؤقتًا</label>
-<input id="newEmoji" placeholder="👕">
+<input id="newImage" type="url" placeholder="رابط صورة المنتج">
 </div>
 
 <button class="saveBtn" onclick="addProduct()">➕ إضافة المنتج</button>
@@ -598,7 +598,7 @@ let p=Number(document.getElementById('newPrice').value);
 
 let c=document.getElementById('newCat').value;
 
-let e=document.getElementById('newEmoji').value.trim()||'👕';
+let e=document.getElementById('newImage').value.trim();
 
 if(!n||!p){
 
